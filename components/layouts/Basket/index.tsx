@@ -65,8 +65,8 @@ const BasketLayout = () => {
                     </Empty>
                 )}
             </div>
-            <div className="fixed bottom-0 left-0 w-full border-t border-t-gray-300 bg-white py-5">
-                <div className="container mx-auto flex  flex-row items-center justify-between">
+            <div className="fixed bottom-0 left-0 w-full border-t border-t-gray-300 bg-white pt-5 md:pb-5">
+                <div className="container mx-auto flex flex-col-reverse items-center justify-between md:flex-row">
                     <div className="flex flex-row items-center justify-between">
                         {basketProducts?.data?.basket?.length > 0 && (
                             <Button
@@ -77,11 +77,11 @@ const BasketLayout = () => {
                                 Оформити замовлення
                             </Button>
                         )}
-                        <Button className="ml-4 px-4 py-2 text-base" variant="black" href={CATALOG_ROUTE}>
+                        <Button className="px-4 py-2 text-base md:ml-4" variant="white" href={CATALOG_ROUTE}>
                             Продовжити покупки
                         </Button>
                     </div>
-                    <div className="flex flex-row items-center justify-between">
+                    <div className="mb-5 flex flex-row items-center justify-between md:mb-0">
                         <Typography color="gray" size="text-lg" bold="medium">
                             Кількість товарів: {basketProducts?.data?.count}
                         </Typography>
