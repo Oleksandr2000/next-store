@@ -95,7 +95,7 @@ const HomeLayout = () => {
                                     <Link
                                         href={`${COLLECTION_ROUTE}/${item._id}`}
                                         key={item._id}
-                                        className="h-[360px] pr-2 lg:h-[460px]"
+                                        className="h-[320px] pr-2 xl:h-[380px]"
                                     >
                                         <PreviewImage src={item.img} title={item.name} className="h-full " />
                                     </Link>
