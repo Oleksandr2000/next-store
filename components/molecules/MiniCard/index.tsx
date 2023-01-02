@@ -10,7 +10,7 @@ const MiniCard = ({ _id, title, img, price, currentPrice, code, hit, currentSize
     <Link href={`${PRODUCT_ROUTE}/${_id}`}>
         <div
             key={_id}
-            className={cn("mx-auto flex h-24 w-80 flex-row items-center bg-gray-50 shadow-md shadow-gray-500", {
+            className={cn("mx-auto flex h-24 w-[290px] flex-row items-center bg-gray-50 shadow-md shadow-gray-500", {
                 "border-r-8 border-r-yellow-600": hit,
             })}
         >

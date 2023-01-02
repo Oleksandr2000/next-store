@@ -40,7 +40,7 @@ const FavoriteLayout = () => {
                             key={item._id}
                             _id={item.product._id}
                             code={item.product.code}
-                            currentPrice={item.product.price - item.product.sale}
+                            currentPrice={item.product.currentPrice}
                             img={item.product.images[0].src}
                             price={item.product.price}
                             title={item.product.title}

@@ -3,7 +3,7 @@ import { DFetchAllProduct, DFetchOneProduct, IProduct } from "./Product.types";
 
 const ProductService = {
     async getAll(query?: string) {
-        const { data } = await axios.get<DFetchAllProduct>(`/api/product?${query && query}`);
+        const { data } = await axios.get<DFetchAllProduct>(`/api/product?${query || ""}`);
         return data;
     },
 
@@ -12,12 +12,12 @@ const ProductService = {
         return data;
     },
 
-    async create(ProductDto: Omit<IProduct, "_id">) {
+    async create(ProductDto: Omit<IProduct, "_id" | "currentPrice">) {
         const { data } = await axios.post(`/api/product/create`, ProductDto);
         return data;
     },
 
-    async update(ProductDto: { data: Omit<IProduct, "_id">; id: string }) {
+    async update(ProductDto: { data: Omit<IProduct, "_id" | "currentPrice">; id: string }) {
         const { data } = await axios.patch(`/api/product/update/${ProductDto.id}`, ProductDto.data);
         return data;
     },

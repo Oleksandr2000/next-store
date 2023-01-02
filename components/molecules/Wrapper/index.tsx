@@ -25,7 +25,7 @@ const Wrapper = ({ data, isLoading, error }: IWrapperProps) => {
                           _id={item._id}
                           title={item.title}
                           price={item.price}
-                          sale={item.price - item.sale}
+                          currentPrice={item.currentPrice}
                           hash={item.code}
                           hit={item.hit}
                           img={item.images[0].src}

@@ -6,7 +6,7 @@ import { ICardProps } from "./Card.props";
 import { PRODUCT_ROUTE } from "../../../utils/route.constant";
 import Title from "../../atoms/Title";
 
-const Card = ({ _id, title, hash, price, sale, img }: ICardProps) => (
+const Card = ({ _id, title, hash, price, currentPrice, img }: ICardProps) => (
     <div className="mx-auto box-border flex max-w-xs flex-col">
         <div>
             <Image src={img} alt={title} width={320} height={460} layout="intrinsic" />
@@ -19,11 +19,13 @@ const Card = ({ _id, title, hash, price, sale, img }: ICardProps) => (
                 {hash}
             </Title>
             <div className="flex justify-between">
-                <Title variant="h6" className="text-black line-through">
-                    {price} грн.
-                </Title>
+                {price !== currentPrice && (
+                    <Title variant="h6" className="text-black line-through">
+                        {price} грн.
+                    </Title>
+                )}
                 <Title variant="h6" className="text-gray-400">
-                    {sale} грн.
+                    {currentPrice} грн.
                 </Title>
             </div>
         </div>

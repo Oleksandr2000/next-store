@@ -20,7 +20,7 @@ export const useFetchOneProduct = (id: string, { select, onSuccess, onError, ena
     });
 
 export const useCreateProduct = () =>
-    useMutation((dto: Omit<IProduct, "_id">) => ProductService.create(dto), {
+    useMutation((dto: Omit<IProduct, "_id" | "currentPrice">) => ProductService.create(dto), {
         onSuccess: (data) => {
             toast.success(`Створено продукт ${data.title}`, {
                 theme: "colored",
@@ -34,7 +34,7 @@ export const useCreateProduct = () =>
     });
 
 export const useUpdateProduct = () =>
-    useMutation((dto: { data: Omit<IProduct, "_id">; id: string }) => ProductService.update(dto), {
+    useMutation((dto: { data: Omit<IProduct, "_id" | "currentPrice">; id: string }) => ProductService.update(dto), {
         onSuccess: (data) => {
             toast.success(`Данні про ${data.title}  оновленно`, {
                 theme: "colored",

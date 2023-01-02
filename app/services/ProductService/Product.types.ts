@@ -26,6 +26,7 @@ export interface IProduct {
     title: string;
     price: number;
     sale: number;
+    currentPrice: number;
     hit: boolean;
     description: string;
     material: ProductMaterial[];

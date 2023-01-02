@@ -49,7 +49,7 @@ const BasketLayout = () => {
                             title={item.product?.title}
                             img={item.product?.images[0].src}
                             price={item.product?.price}
-                            currentPrice={item.product?.price - item.product?.sale}
+                            currentPrice={item.product?.currentPrice}
                             code={item.product?.code}
                             currentSize={item.size}
                             count={item.count}

@@ -48,9 +48,6 @@ const ProductForm = ({ title, isUpdate = false }: IProductFormProps) => {
 
     const products = useFetchAllProducts({
         select: (data: any) => transformToOption(data.products, "title", "_id"),
-        onSuccess: (data: any) => {
-            setSelectedProduct(data[0]);
-        },
     });
 
     const filters = useFetchCategoryFilters(selectedCategory.value, {
@@ -76,7 +73,7 @@ const ProductForm = ({ title, isUpdate = false }: IProductFormProps) => {
     });
 
     const product = useFetchOneProduct(selectedProduct.value, {
-        enabled: !!selectedProduct.value && !!materialsOption && !!sizesOption,
+        enabled: selectedProduct.value !== undefined && !!materialsOption && !!sizesOption,
         onSuccess: (data: any) => {
             if (isUpdate && data.product) {
                 useFillForm(data.product, ProductAdminForm);

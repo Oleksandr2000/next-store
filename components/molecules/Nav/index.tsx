@@ -1,12 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import { INavProps } from "./Nav.props";
 
 import AuthIcon from "../../../public/icons/auth.svg";
-import FavoriteIcon from "../../../public/icons/favorite.svg";
 import LogoutIcon from "../../../public/icons/logout.svg";
 import MenuIcon from "../../../public/img/menu.png";
 import BasketIcon from "../../../public/img/basket.png";
@@ -22,8 +21,11 @@ import Route from "../../atoms/Route";
 import useHandleScroll from "../../../app/hooks/useHandleScroll";
 import { useFetchCollections } from "../../../app/services/CollectionService/hooks";
 import { ICollection } from "../../../app/services/CollectionService/Collection.types";
+import Modal from "../Modal";
 
 const Nav = ({ isOpen, setIsOpen }: INavProps) => {
+    const [openSearch, setOpenSearch] = useState<boolean>(false);
+
     const categories = useFetchCategories({});
     const collections = useFetchCollections({});
 
@@ -90,32 +92,41 @@ const Nav = ({ isOpen, setIsOpen }: INavProps) => {
                                 </Route>
                                 <Route href={LOOK_ROUTE}>Образи</Route>
                                 {user && user?.role === "ADMIN" && <Route href="/admin">Панель адміністратора</Route>}
+                                <Route>
+                                    <span className="cursor-pointer" onClick={() => setOpenSearch(true)}>
+                                        Пошук
+                                    </span>
+                                </Route>
+                                <Route href={!token || !user ? AUTH_ROUTE : FAVORITE_ROUTE}>Обране</Route>
+                                {!token || !user ? (
+                                    <Route href={AUTH_ROUTE}>
+                                        <div className="flex flex-row">
+                                            <Image src={AuthIcon} alt="auth" width={24} height={24} />
+                                            <span className="ml-2">Увійти</span>
+                                        </div>
+                                    </Route>
+                                ) : (
+                                    <Route href={AUTH_ROUTE}>
+                                        <div className="flex flex-row">
+                                            <Image
+                                                src={LogoutIcon}
+                                                alt="logout"
+                                                width={24}
+                                                height={24}
+                                                onClick={logout}
+                                            />
+                                            <span className="ml-2 text-red-900">Вихід</span>
+                                        </div>
+                                    </Route>
+                                )}
                             </ul>
-                        </div>
-                        <div className="mb:10 mt-4 flex w-full flex-row items-center justify-between px-3 py-4 lg:m-0 ">
-                            {!token || !user ? (
-                                <Link href={AUTH_ROUTE}>
-                                    <Image src={AuthIcon} alt="auth" width={24} height={24} />
-                                </Link>
-                            ) : (
-                                <Link href={AUTH_ROUTE}>
-                                    <Image src={LogoutIcon} alt="logout" width={24} height={24} onClick={logout} />
-                                </Link>
-                            )}
-                            <SearchPanel />
-                            {!token || !user ? (
-                                <Link href={AUTH_ROUTE}>
-                                    <Image src={FavoriteIcon} alt="favorite" width={24} height={24} />
-                                </Link>
-                            ) : (
-                                <Link href={FAVORITE_ROUTE}>
-                                    <Image src={FavoriteIcon} alt="favorite" width={24} height={24} />
-                                </Link>
-                            )}
                         </div>
                     </div>
                 </motion.nav>
             )}
+            <Modal open={openSearch} setOpen={setOpenSearch}>
+                <SearchPanel />
+            </Modal>
         </AnimatePresence>
     );
 };
